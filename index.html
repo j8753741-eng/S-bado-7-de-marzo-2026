@@ -2,15 +2,16 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nuestra Historia Increíble</title>
 
 <style>
 
 body{
 margin:0;
-font-family: Georgia, serif;
+font-family:Georgia,serif;
 color:white;
-background:linear-gradient(#050510,#020208 70%);
+background:linear-gradient(#050515,#020208 70%);
 overflow-x:hidden;
 }
 
@@ -20,32 +21,52 @@ overflow-x:hidden;
 position:fixed;
 width:100%;
 height:100%;
-background-image:
+background:
 radial-gradient(white 1px, transparent 1px),
 radial-gradient(white 1px, transparent 1px);
 background-size:60px 60px;
-opacity:0.25;
-animation:moveStars 120s linear infinite;
+opacity:0.3;
+animation:starsMove 120s linear infinite;
 z-index:-2;
 }
 
-@keyframes moveStars{
+@keyframes starsMove{
 from{transform:translateY(0);}
-to{transform:translateY(-1000px);}
+to{transform:translateY(-800px);}
 }
 
-/* CIUDAD */
+/* TELARAÑAS FIJAS */
 
-.city{
+.web{
 position:fixed;
-bottom:0;
-width:100%;
-height:160px;
-background:linear-gradient(to top,#000,#0000),
-url("https://i.imgur.com/9QZ7Z6F.png");
-background-size:cover;
-opacity:0.5;
-z-index:-1;
+width:200px;
+height:200px;
+border-top:2px solid rgba(255,255,255,0.15);
+border-left:2px solid rgba(255,255,255,0.15);
+border-radius:50%;
+top:-100px;
+}
+
+.web1{left:-100px;transform:rotate(10deg);}
+.web2{right:-100px;transform:rotate(-10deg);}
+
+/* TELARAÑA QUE BAJA */
+
+.webDrop{
+position:fixed;
+top:-200px;
+left:50%;
+width:3px;
+height:200px;
+background:white;
+animation:dropWeb 2s ease-out forwards;
+z-index:10;
+}
+
+@keyframes dropWeb{
+to{
+top:0;
+}
 }
 
 /* CONTENEDOR */
@@ -56,37 +77,56 @@ margin:auto;
 padding:40px 25px 120px 25px;
 }
 
-/* VIDEO */
+/* BOTON MUSICA */
 
-.video{
+.music{
 text-align:center;
 margin-bottom:40px;
 }
 
-iframe{
+.music a{
+background:#ff003c;
+color:white;
+padding:15px 28px;
+font-size:18px;
 border-radius:12px;
-box-shadow:0 0 35px rgba(255,0,60,0.4);
+text-decoration:none;
+box-shadow:0 0 20px #ff003c;
+transition:0.3s;
 }
 
-/* TITULO */
+.music a:hover{
+transform:scale(1.1);
+}
+
+/* TITULO CINEMATOGRAFICO */
 
 .title{
 text-align:center;
 font-size:46px;
 margin:30px 0 40px 0;
+opacity:0;
+animation:titleReveal 3s ease forwards;
+animation-delay:1.5s;
 
 text-shadow:
 0 0 5px white,
-0 0 10px #ff003c,
+0 0 15px #ff003c,
 0 0 30px #ff003c,
-0 0 50px #0066ff;
-
-animation:neon 4s infinite alternate;
+0 0 60px #0066ff;
 }
 
-@keyframes neon{
-from{opacity:0.7;}
-to{opacity:1;}
+@keyframes titleReveal{
+from{
+opacity:0;
+transform:translateY(40px);
+letter-spacing:10px;
+}
+to{
+opacity:1;
+transform:translateY(0);
+letter-spacing:2px;
+}
 }
 
 /* CARTA */
@@ -99,23 +139,24 @@ line-height:1.9;
 font-size:20px;
 
 box-shadow:
-0 0 40px rgba(255,0,60,0.2),
-0 0 80px rgba(0,80,255,0.2);
+0 0 40px rgba(255,0,60,0.25),
+0 0 80px rgba(0,100,255,0.25);
 
 backdrop-filter:blur(6px);
+
+animation:fadeIn 2s ease;
 }
 
-/* TELARAÑAS */
-
-.web{
-position:fixed;
-width:180px;
-opacity:0.15;
-pointer-events:none;
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(40px);
 }
-
-.web1{top:0;left:0;}
-.web2{top:0;right:0;transform:scaleX(-1);}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 
 /* FINAL */
 
@@ -124,51 +165,72 @@ text-align:center;
 font-size:32px;
 margin-top:40px;
 color:#ff003c;
-
-text-shadow:
-0 0 10px #ff003c,
-0 0 25px #ff003c;
+text-shadow:0 0 20px #ff003c;
 }
 
-/* PROMESA */
-
-.promise{
+  .promesa{
 text-align:center;
 font-size:24px;
 margin-top:30px;
 color:gold;
-
 text-shadow:
 0 0 10px gold,
-0 0 25px gold;
+0 0 20px gold;
+  }
+  
+/* BOTON SORPRESA */
+
+.surprise{
+text-align:center;
+margin-top:40px;
+}
+
+.surprise button{
+background:#0066ff;
+border:none;
+color:white;
+font-size:20px;
+padding:15px 30px;
+border-radius:12px;
+cursor:pointer;
+box-shadow:0 0 20px #0066ff;
+transition:0.3s;
+}
+
+.surprise button:hover{
+transform:scale(1.1);
 }
 
 /* PREGUNTA */
 
 .question{
 text-align:center;
-margin-top:45px;
-font-size:26px;
+font-size:30px;
+margin-top:30px;
+opacity:0;
+transition:1s;
+}
 
-text-shadow:0 0 15px #0066ff;
+.question.show{
+opacity:1;
 }
 
 /* CORAZONES */
 
-.hearts{
+.hearts span{
 position:fixed;
-bottom:0;
-width:100%;
-pointer-events:none;
-}
-
-.heart{
-position:absolute;
+bottom:-20px;
 color:#ff003c;
-font-size:22px;
-animation:float 10s linear infinite;
+font-size:20px;
+animation:float 12s linear infinite;
 opacity:0.7;
 }
+
+.hearts span:nth-child(1){left:10%;}
+.hearts span:nth-child(2){left:30%;animation-delay:2s;}
+.hearts span:nth-child(3){left:50%;animation-delay:4s;}
+.hearts span:nth-child(4){left:70%;animation-delay:1s;}
+.hearts span:nth-child(5){left:85%;animation-delay:3s;}
 
 @keyframes float{
 from{
@@ -176,7 +238,7 @@ transform:translateY(0);
 opacity:0.7;
 }
 to{
-transform:translateY(-800px);
+transform:translateY(-900px);
 opacity:0;
 }
 }
@@ -187,19 +249,24 @@ opacity:0;
 <body>
 
 <div class="stars"></div>
-<div class="city"></div>
+<div class="web web1"></div>
+<div class="web web2"></div>
 
-<img class="web web1" src="https://i.imgur.com/3QZ6q8T.png">
-<img class="web web2" src="https://i.imgur.com/3QZ6q8T.png">
+<!-- TELARAÑA ANIMADA -->
+<div class="webDrop"></div>
 
 <div class="container">
 
-<div class="video">
-<iframe width="420" height="236"
-src="https://www.youtube.com/embed/akizjQLjXuA"
-frameborder="0"
-allowfullscreen>
-</iframe>
+<div class="music">
+
+<p style="font-size:20px;margin-bottom:15px;">
+Esta carta fue escrita escuchando nuestra canción…
+</p>
+
+<a href="https://youtu.be/akizjQLjXuA" target="_blank">
+🎵 Escuchar nuestra canción
+</a>
+
 </div>
 
 <div class="title">
@@ -209,101 +276,194 @@ Nuestra Historia Increíble
 <div class="letter">
 
 <p>Mi amor,</p>
+<p>Mi amor,</p>
+
+<p>
 Esta noche la ciudad parece diferente.
 Las luces brillan más fuerte, el viento corre entre los edificios y el cielo oscuro parece guardar miles de historias que aún no han sido contadas.
 Y mientras el mundo sigue girando, mientras las personas caminan sin imaginar todo lo que puede cambiar en un solo instante… yo estoy aquí pensando en ti.
+</p>
+
+<p>
 Pensando en lo increíble que es que, entre millones de personas en el mundo, nuestros caminos se hayan encontrado.
 Porque hay encuentros que parecen coincidencias…
 pero también hay encuentros que parecen destino.
+</p>
+
+<p>
 Y tú…
 tú llegaste a mi vida como algo que el destino había estado preparando desde mucho antes.
+</p>
+
+<p>
 A veces imagino la ciudad desde lo alto de un edificio, viendo cómo el viento mueve las luces y cómo la noche envuelve todo con su silencio.
 En un momento así, entiendo algo muy claro:
 Las historias más importantes no se escriben con grandes poderes…
 se escriben con grandes sentimientos.
+</p>
+
+<p>
 Como la historia entre Peter Parker y Gwen Stacy.
 No era solo una historia de héroes y aventuras.
 Era una historia de dos personas que se encontraron en medio de un mundo caótico… y decidieron amarse con todo su corazón.
+</p>
+
+<p>
 A veces pienso en eso y sonrío, porque de alguna forma nuestra historia también se siente así.
 No perfecta.
 No sencilla.
 Pero increíblemente real.
+</p>
+
+<p>
 Porque cuando te miro siento algo que no puedo explicar completamente.
 Mi corazón late más rápido.
 El mundo parece más brillante.
 Y cada segundo contigo se vuelve un recuerdo que quiero guardar para siempre.
+</p>
+
+<p>
 Si pudiera balancearme entre los edificios como Peter Parker, atravesando la ciudad mientras el viento golpea mi rostro y las luces pasan como estrellas debajo de mí… no lo haría para escapar del mundo.
 Lo haría para llegar hasta ti.
+</p>
+
+<p>
 Porque de todos los lugares que existen…
 tú eres mi destino favorito.
+</p>
+
+<p>
 Eres la persona que llegó a mi vida y la transformó.
 La que convirtió momentos simples en recuerdos inolvidables.
 La que hizo que mi corazón entendiera lo que significa amar de verdad.
+</p>
+
+<p>
 Contigo aprendí algo que nadie me había enseñado:
 El amor verdadero no es solo emoción.
 Es valentía.
 Es la decisión de quedarse cuando todo parece difícil.
 Es la fuerza de seguir adelante incluso cuando el mundo se vuelve complicado.
 Es ese lazo invisible que conecta dos almas aunque estén lejos.
+</p>
+
+<p>
 Y por eso quiero decirte algo esta noche.
 Algo que nace desde lo más profundo de mi corazón.
+</p>
+
+<p>
 Si la vida alguna vez se vuelve difícil…
 si alguna vez el camino se llena de obstáculos…
 si alguna vez el mundo parece demasiado grande o demasiado complicado…
 quiero que recuerdes algo muy importante.
+</p>
+
+<p>
 Yo voy a estar contigo.
 No importa qué tan fuerte sea la tormenta.
 No importa qué tan alto sea el desafío.
 No importa qué tan incierto parezca el futuro.
+</p>
+
+<p>
 Porque cuando amo, amo con todo lo que soy.
+</p>
+
+<p>
 Tal vez no tenga superpoderes.
 Tal vez no pueda detener el tiempo.
 Tal vez no pueda salvar ciudades como los héroes de las historias.
+</p>
+
+<p>
 Pero hay algo que sí puedo hacer.
 Algo que haré siempre.
 <strong>Elegirte.</strong>
+</p>
+
+<p>
 Elegirte hoy.
 Elegirte mañana.
 Elegirte en cada capítulo de esta historia que estamos escribiendo juntos.
+</p>
+
+<p>
 Porque si el universo está lleno de millones de caminos posibles…
 yo sé que siempre terminaría encontrando el camino que me lleva a ti.
+</p>
+
+<p>
 Y volvería a enamorarme de ti una y otra vez.
+</p>
+
+<p>
 Porque entre todas las historias que existen en este mundo…
 la nuestra es la que más quiero vivir.
+</p>
+
+<p>
 Y si algún día miramos hacia atrás y recordamos todo lo que hemos vivido…
 quiero que podamos decir algo con una sonrisa:
+</p>
+
+<p>
 Que en medio de un mundo lleno de caos, aventuras y desafíos…
 nuestro amor siempre fue la parte más increíble de la historia.
+</p>
+
+<p>
 Te amo.
 Más de lo que las palabras pueden explicar.
 Más de lo que el tiempo puede medir.
 Más de lo que cualquier historia podría contar.
+</p>
+
+<p>
 Y pase lo que pase…
+</p>
+
 </div>
 
 <div class="final">
-siempre voy a elegirte a ti.
-❤️ 
+siempre voy a elegirte a ti ❤️
 </div>
 
-<div class="promise">
-Prometo que mientras mi corazón siga latiendo, siempre voy a cuidarte, apoyarte y amarte, porque encontrarte fue el momento más increíble de toda mi historia.
+<div class="promesa">
+Prometo que mientras exista un latido en mi corazón, siempre voy a cuidarte, apoyarte y amarte, porque encontrarte fue el momento más increíble de mi historia.
 </div>
 
-<div class="question">
-Si esta historia fuera una aventura entre el cielo y la ciudad…  
-¿te gustaría seguir balanceándote por la vida conmigo y escribir juntos cada capítulo de nuestra historia?
+<!-- BOTON SORPRESA -->
+
+<div class="surprise">
+
+<button onclick="mostrarPregunta()">
+💌 Abrir la última sorpresa
+</button>
+
+</div>
+
+<div id="pregunta" class="question">
+¿Quieres seguir escribiendo esta historia increíble conmigo? ❤️
 </div>
 
 </div>
 
 <div class="hearts">
-<span class="heart" style="left:10%">❤️</span>
-<span class="heart" style="left:30%;animation-delay:2s">❤️</span>
-<span class="heart" style="left:50%;animation-delay:4s">❤️</span>
-<span class="heart" style="left:70%;animation-delay:1s">❤️</span>
-<span class="heart" style="left:85%;animation-delay:3s">❤️</span>
+<span>❤️</span>
+<span>❤️</span>
+<span>❤️</span>
+<span>❤️</span>
+<span>❤️</span>
 </div>
 
+<script>
+
+function mostrarPregunta(){
+document.getElementById("pregunta").classList.add("show");
+}
+
+</script>
+
 </body>
-</html>
+  </html>
